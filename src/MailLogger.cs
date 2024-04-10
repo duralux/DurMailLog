@@ -39,7 +39,7 @@ namespace DurMailLog
 
     #region Functions
 
-    public IDisposable BeginScope<TState>(TState state)
+    public IDisposable BeginScope<TState>(TState state) where TState : notnull
     {
       return this._externalScopeProvider?.Push(state) ?? new NullDisposable();
     }

@@ -49,17 +49,20 @@ namespace DurMailLog
         .GetSection("Logging:MailLog")
         .Get<MailLoggerConfiguration>();
 
-      this.Host = options.Host;
-      this.Port = options.Port;
-      this.UseSsl = options.UseSsl;
-      this.User = options.User;
-      this.Password = options.Password;
-      this.IntervalSeconds = options.IntervalSeconds;
-      this.From = options.From ?? options.User;
-      this.LogLevel = options.LogLevel;
-      this.To = options.To;
-      this.CC = options.CC;
-      this.Bcc = options.Bcc;
+      if (options != null)
+      {
+        this.Host = options.Host;
+        this.Port = options.Port;
+        this.UseSsl = options.UseSsl;
+        this.User = options.User;
+        this.Password = options.Password;
+        this.IntervalSeconds = options.IntervalSeconds;
+        this.From = options.From ?? options.User;
+        this.LogLevel = options.LogLevel;
+        this.To = options.To;
+        this.CC = options.CC;
+        this.Bcc = options.Bcc;
+      }
     }
 
     #endregion
