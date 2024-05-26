@@ -61,6 +61,8 @@ namespace DurMailLog
     private void ScanningQueueThread()
     {
       var options = _options.CurrentValue;
+      using var client = new SmtpClient();
+      
       while (true)
       {
         Thread.Sleep(TimeSpan.FromSeconds(options.IntervalSeconds));
@@ -75,9 +77,14 @@ namespace DurMailLog
             if (message == null)
             { break; }
 
-            using var client = new SmtpClient();
-            client.Connect(options.Host, options.Port, options.UseSsl);
-            client.Authenticate(options.User, options.Password);
+            if (!client.IsConnected)
+            {
+              client.Connect(options.Host, options.Port, options.UseSsl);
+            }
+            if (!client.IsAuthenticated)
+            {
+              client.Authenticate(options.User, options.Password);
+            }
             client.Send(message);
           }
           catch
@@ -129,7 +136,7 @@ namespace DurMailLog
       }
 
       var log = new StringBuilder()
-        .AppendLine($"<h1>{logItem.CategoryName}</h1>")
+        .AppendLine($"<h1>{logItem.CategoryName}</h1>")r
         .AppendLine($"EventId: <b>[{logItem.EventId}]</b><br />")
         .AppendLine($"Time: <b>{DateTime.Now}</b><br />")
         .AppendLine($"Host: <b>{Environment.MachineName}</b><br />")
