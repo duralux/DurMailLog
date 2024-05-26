@@ -136,7 +136,7 @@ namespace DurMailLog
       }
 
       var log = new StringBuilder()
-        .AppendLine($"<h1>{logItem.CategoryName}</h1>")r
+        .AppendLine($"<h1>{logItem.CategoryName}</h1>")
         .AppendLine($"EventId: <b>[{logItem.EventId}]</b><br />")
         .AppendLine($"Time: <b>{DateTime.Now}</b><br />")
         .AppendLine($"Host: <b>{Environment.MachineName}</b><br />")
