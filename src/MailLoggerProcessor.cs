@@ -164,7 +164,7 @@ namespace DurMailLog
         {
           style = "style=\"color: orange\"";
         }
-        log.AppendLine($"<span {style}>" + (logRow.StartsWith("\"") ? "" : "\"") + logRow.Replace(Environment.NewLine, "<br />") + "</span><br />");
+        log.AppendLine($"<span {style}>" + (logRow.StartsWith('\"') ? "" : "\"") + logRow.Replace(Environment.NewLine, "<br />") + "</span><br />");
       }
       //$"{logItem.Message.Replace(Environment.NewLine, "<br />" + Environment.NewLine)}</span></p>");
 
@@ -186,7 +186,7 @@ namespace DurMailLog
     }
 
 
-    private static IEnumerable<MailboxAddress> GetMailboxAddresses(
+    private static List<MailboxAddress> GetMailboxAddresses(
       Dictionary<string, Dictionary<string, LogLevel>> mailAddresses,
       LogLevel logLevel, string categoryName)
     {

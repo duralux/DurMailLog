@@ -3,31 +3,17 @@ using System;
 
 namespace DurMailLog
 {
-  internal class LogMessageEntry
+  internal class LogMessageEntry(LogLevel logLevel, EventId eventId, string message,
+    Exception? exception, string categoryName)
   {
 
     #region Properties
 
-    public LogLevel LogLevel { get; set; }
-    public EventId EventId { get; set; }
-    public string Message { get; set; }
-    public Exception? Exception { get; set; }
-    public string CategoryName { get; set; }
-
-    #endregion
-
-
-    #region Initialization
-
-    public LogMessageEntry(LogLevel logLevel, EventId eventId, string message,
-      Exception? exception, string categoryName)
-    {
-      this.LogLevel = logLevel;
-      this.EventId = eventId;
-      this.Message = message;
-      this.Exception = exception;
-      this.CategoryName = categoryName;
-    }
+    public LogLevel LogLevel { get; set; } = logLevel;
+    public EventId EventId { get; set; } = eventId;
+    public string Message { get; set; } = message;
+    public Exception? Exception { get; set; } = exception;
+    public string CategoryName { get; set; } = categoryName;
 
     #endregion
 

@@ -12,8 +12,7 @@ namespace DurMailLog
 
     public static ILoggingBuilder AddMailLog(this ILoggingBuilder builder)
     {
-      if (builder == null)
-      { throw new ArgumentNullException(nameof(builder)); }
+      ArgumentNullException.ThrowIfNull(builder);
 
       builder.Services.TryAddEnumerable(
         ServiceDescriptor.Singleton<ILoggerProvider, MailLoggerProvider>());
@@ -25,11 +24,8 @@ namespace DurMailLog
     public static ILoggingBuilder AddMailLogger(this ILoggingBuilder builder,
       Action<MailLoggerConfiguration> configure)
     {
-      if (configure == null)
-      { throw new ArgumentNullException(nameof(configure)); }
-
-      if (builder == null)
-      { throw new ArgumentNullException(nameof(builder)); }
+      ArgumentNullException.ThrowIfNull(configure);
+      ArgumentNullException.ThrowIfNull(builder);
 
       builder.Services.TryAddEnumerable(
         ServiceDescriptor.Singleton<ILoggerProvider, MailLoggerProvider>());

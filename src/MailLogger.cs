@@ -4,40 +4,28 @@ using System;
 
 namespace DurMailLog
 {
-  class MailLogger : ILogger, IDisposable
+  class MailLogger(string categoryName, MailLoggerProcessor processor,
+    IExternalScopeProvider externalScopeProvider,
+    IOptionsMonitor<MailLoggerConfiguration> options) : ILogger, IDisposable
   {
 
     #region Properties
 
-    private readonly IOptionsMonitor<MailLoggerConfiguration> _options;
-    private readonly MailLoggerProcessor _processor;
-    private readonly string _categoryName;
-    private readonly IExternalScopeProvider _externalScopeProvider;
+    private readonly IOptionsMonitor<MailLoggerConfiguration> _options = options;
+    private readonly MailLoggerProcessor _processor = processor;
+    private readonly string _categoryName = categoryName;
+    private readonly IExternalScopeProvider _externalScopeProvider = externalScopeProvider;
 
     #endregion
 
 
-    #region Initialization
-
-    public MailLogger(string categoryName, MailLoggerProcessor processor,
-      IExternalScopeProvider externalScopeProvider,
-      IOptionsMonitor<MailLoggerConfiguration> options)
-    {
-      this._categoryName = categoryName;
-      this._processor = processor;
-      this._externalScopeProvider = externalScopeProvider;
-      this._options = options;
-    }
+    #region Functions
 
     public void Dispose()
     {
       this._processor.Dispose();
     }
 
-    #endregion
-
-
-    #region Functions
 
     public IDisposable BeginScope<TState>(TState state) where TState : notnull
     {
@@ -76,10 +64,7 @@ namespace DurMailLog
         return;
       }
 
-      if (formatter == null)
-      {
-        throw new ArgumentNullException(nameof(formatter));
-      }
+      ArgumentNullException.ThrowIfNull(formatter);
 
       var message = formatter(state, exception);
       if (string.IsNullOrEmpty(message))

@@ -36,10 +36,10 @@ namespace DurMailLog
 
     public MailLoggerConfiguration()
     {
-      this.LogLevel = new Dictionary<string, LogLevel>();
-      this.To = new Dictionary<string, Dictionary<string, LogLevel>>();
-      this.CC = new Dictionary<string, Dictionary<string, LogLevel>>();
-      this.Bcc = new Dictionary<string, Dictionary<string, LogLevel>>();
+      this.LogLevel = [];
+      this.To = [];
+      this.CC = [];
+      this.Bcc = [];
     }
 
 
